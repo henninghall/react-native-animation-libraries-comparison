@@ -1,40 +1,48 @@
-import React, {useRef, useState} from 'react'
-import {Transition, Transitioning} from 'react-native-reanimated'
-import {Card} from '../Card'
-import {CardContainer} from '../CardContainer'
-import {
-  animationDuration,
-  collapsedHeight,
-  expandedHeight,
-  initialHeight,
-} from '../constants'
-
-const transition = (
-  <Transition.Change interpolation="easeInOut" durationMs={animationDuration} />
-)
+import React from 'react';
+import Animated, {
+  useSharedValue,
+  withTiming,
+  useAnimatedStyle,
+  Easing,
+} from 'react-native-reanimated';
+import {Card} from '../Card';
+import {CardContainer} from '../CardContainer';
+import {animationDuration, collapsedHeight, expandedHeight} from '../constants';
 
 export const Reanimated2 = ({heavyLoad}) => {
-  const ref = useRef()
-  let [height, setHeight] = useState(initialHeight)
+  const height = useSharedValue(collapsedHeight);
+
+  const config = {
+    duration: animationDuration,
+    easing: Easing.bezier(0.5, 0.01, 0, 1),
+  };
+
+  const style = useAnimatedStyle(() => {
+    return {
+      height: withTiming(height.value, config),
+    };
+  });
 
   const onPress = () => {
-    ref.current.animateNextTransition()
-    setHeight(height === expandedHeight ? collapsedHeight : expandedHeight)
-  }
+    height.value =
+      height.value === expandedHeight ? collapsedHeight : expandedHeight;
+  };
 
   return (
-    <Transitioning.View ref={ref} transition={transition}>
+    <>
       <CardContainer>
         <Card />
       </CardContainer>
 
-      <CardContainer style={{height}} onPress={onPress}>
-        <Card expandable heavyLoad={heavyLoad} />
+      <CardContainer onPress={onPress}>
+        <Animated.View style={style}>
+          <Card expandable heavyLoad={heavyLoad} />
+        </Animated.View>
       </CardContainer>
 
       <CardContainer>
         <Card />
       </CardContainer>
-    </Transitioning.View>
-  )
-}
+    </>
+  );
+};
