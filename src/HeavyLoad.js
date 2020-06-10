@@ -1,7 +1,7 @@
 import React from 'react'
 import {View} from 'react-native'
 
-const componentsToRender = 3000
+const componentsToRender = 5000
 
 export const HeavyLoad = () => {
   return (
