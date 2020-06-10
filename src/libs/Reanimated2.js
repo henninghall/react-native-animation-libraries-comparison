@@ -14,7 +14,7 @@ export const Reanimated2 = ({heavyLoad}) => {
 
   const config = {
     duration: animationDuration,
-    easing: Easing.bezier(0.5, 0.01, 0, 1),
+    easing: Easing.inOut(Easing.ease),
   }
 
   const style = useAnimatedStyle(() => {
