@@ -1,32 +1,32 @@
-import React from 'react';
+import React from 'react'
 import Animated, {
   useSharedValue,
   withTiming,
   useAnimatedStyle,
   Easing,
-} from 'react-native-reanimated';
-import {Card} from '../Card';
-import {CardContainer} from '../CardContainer';
-import {animationDuration, collapsedHeight, expandedHeight} from '../constants';
+} from 'react-native-reanimated'
+import {Card} from '../Card'
+import {CardContainer} from '../CardContainer'
+import {animationDuration, collapsedHeight, expandedHeight} from '../constants'
 
 export const Reanimated2 = ({heavyLoad}) => {
-  const height = useSharedValue(collapsedHeight);
+  const height = useSharedValue(collapsedHeight)
 
   const config = {
     duration: animationDuration,
     easing: Easing.bezier(0.5, 0.01, 0, 1),
-  };
+  }
 
   const style = useAnimatedStyle(() => {
     return {
       height: withTiming(height.value, config),
-    };
-  });
+    }
+  })
 
   const onPress = () => {
     height.value =
-      height.value === expandedHeight ? collapsedHeight : expandedHeight;
-  };
+      height.value === expandedHeight ? collapsedHeight : expandedHeight
+  }
 
   return (
     <>
@@ -44,5 +44,5 @@ export const Reanimated2 = ({heavyLoad}) => {
         <Card />
       </CardContainer>
     </>
-  );
-};
+  )
+}
