@@ -1,23 +1,25 @@
-# reanimated-2-playground
+# Comparing React Native animation libraries
 
-This repo contains a fresh React Native project with preinstalled Reanimated V2
+Comparing an expandable card animation with the following libs:
 
-Checkout using the following command to start playing with the new Reanimated API:
+- Animated
+- Layout Animation
+- Reanimated 1
+- Reanimated 2
+
+<br>
+<img src="screencap.gif" height="400px">
+
+## Installation
 
 ```bash
-> git clone git@github.com:software-mansion-labs/reanimated-2-playground.git
-```
-
-Don't forget to install dependencies:
-```bash
-> cd reanimated-2-playground && yarn
-```
-
-If you want to install app on the iOS simulator:
-```bash
+yarn
 npx pod-install
+react-native run-ios
 ```
 
-Then run the app using Xcode or `react-native` CLI.
+## Usage
 
-[Check Reanimated 2 documentation here.](https://docs.swmansion.com/react-native-reanimated/)
+Toggle the "heavy load"-switch to make a basic performance comparison. When enabled, many additional invisible views are rendered within the card. This makes the performance difference between a native and a js driven animation obvious.
+
+The default Animated library does not support native driven animations for properties such as height. The other libs does support native driven animations.
